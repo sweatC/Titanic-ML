@@ -110,14 +110,30 @@ features_two = train[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "Embarke
 max_depth = 10
 min_samples_split = 5
 my_tree_two = tree.DecisionTreeClassifier(max_depth=max_depth, min_samples_split=min_samples_split, random_state=1)
-my_tree_two = my_tree_two.fit(features_two, train["Survived"])
+my_tree_two = my_tree_two.fit(features_two, target)
 # Print the score of the new decison tree
 print("Score after overfitting control: {}".format(my_tree_two.score(features_two, train["Survived"])))
-
+'''
 test_features_two = test[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "Embarked"]].values
 my_prediction_two = my_tree_two.predict(test_features_two)
 PassengerId = np.array(test["PassengerId"]).astype(int)
 my_solution = pd.DataFrame(my_prediction_two, PassengerId, columns=["Survived"])
 my_solution.to_csv('my_solution_two.csv', index_label=["PassengerId"])
 MY_SOLUTUION_TWO_SCORE = 0.76076
-print("Kaggle score using test set is: {}".format(MY_SOLUTUION_TWO_SCORE))
+print("Kaggle score using test set is: {}".format(MY_SOLUTUION_TWO_SCORE))'''
+
+# Create train_two with the newly defined feature
+train_two = train.copy()
+train_two["family_size"] = train_two["SibSp"]+train_two["Parch"]+1
+# Create a new feature set and add the new feature
+features_three = train_two[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "family_size"]].values
+# Define the tree classifier, then fit the model
+my_tree_three = tree.DecisionTreeClassifier()
+my_tree_three = my_tree_three.fit(features_three, target)
+# Print the score of this decision tree
+print("Score after Feature-engineering: {}".format(my_tree_three.score(features_three, target)))
+
+
+
+
+

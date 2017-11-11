@@ -133,6 +133,17 @@ my_tree_three = my_tree_three.fit(features_three, target)
 # Print the score of this decision tree
 print("Score after Feature-engineering: {}".format(my_tree_three.score(features_three, target)))
 
+'''
+test_two = test.copy()
+test_two["family_size"] = test_two["SibSp"]+test_two["Parch"]+1
+test_features_three = test_two[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "family_size"]].values
+my_prediction_three = my_tree_three.predict(test_features_three)
+PassengerId = np.array(test["PassengerId"]).astype(int)
+my_solution = pd.DataFrame(my_prediction_three, PassengerId, columns=["Survived"])
+my_solution.to_csv('my_solution_three.csv', index_label=["PassengerId"])
+MY_SOLUTUION_THREE_SCORE = 0.65071
+print("Kaggle score using test set is: {}".format(MY_SOLUTUION_THREE_SCORE))'''
+
 
 
 

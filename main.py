@@ -91,8 +91,8 @@ print(my_tree_one.score(features_one, target))'''
 # Impute the missing value with the median
 test.Fare[152] = test["Fare"].median()
 # Extract the features from the test set
-test_features = test[["Age", "Sex", "Fare", "Pclass"]].values
-
+test_features = test[["Pclass", "Sex", "Age", "Fare"]].values
+'''
 # Make your prediction using the test set
 my_prediction = my_tree_one.predict(test_features)
 PassengerId = np.array(test["PassengerId"]).astype(int)
@@ -101,4 +101,15 @@ my_solution = pd.DataFrame(my_prediction, PassengerId, columns=["Survived"])
 print(my_solution.shape)
 # Write your solution to a csv file with the name my_solution.csv
 my_solution.to_csv('my_solution_one.csv', index_label=["PassengerId"])
+'''
 
+# Create a new array with the added features: features_two
+features_two = train[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "Embarked"]].values
+
+# Control overfitting by setting "max_depth" to 10 and "min_samples_split" to 5 : my_tree_two
+max_depth = 10
+min_samples_split = 5
+my_tree_two = tree.DecisionTreeClassifier(max_depth=max_depth, min_samples_split=min_samples_split, random_state=1)
+my_tree_two = my_tree_two.fit(features_two, train["Survived"])
+# Print the score of the new decison tree
+print("Score after overfitting control: {}".format(my_tree_two.score(features_two, train["Survived"])))

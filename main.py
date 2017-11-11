@@ -119,4 +119,5 @@ my_prediction_two = my_tree_two.predict(test_features_two)
 PassengerId = np.array(test["PassengerId"]).astype(int)
 my_solution = pd.DataFrame(my_prediction_two, PassengerId, columns=["Survived"])
 my_solution.to_csv('my_solution_two.csv', index_label=["PassengerId"])
-
+MY_SOLUTUION_TWO_SCORE = 0.76076
+print("Kaggle score using test set is: {}".format(MY_SOLUTUION_TWO_SCORE))

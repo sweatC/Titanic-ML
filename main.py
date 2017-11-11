@@ -113,3 +113,10 @@ my_tree_two = tree.DecisionTreeClassifier(max_depth=max_depth, min_samples_split
 my_tree_two = my_tree_two.fit(features_two, train["Survived"])
 # Print the score of the new decison tree
 print("Score after overfitting control: {}".format(my_tree_two.score(features_two, train["Survived"])))
+
+test_features_two = test[["Pclass", "Sex", "Age", "Fare", "SibSp", "Parch", "Embarked"]].values
+my_prediction_two = my_tree_two.predict(test_features_two)
+PassengerId = np.array(test["PassengerId"]).astype(int)
+my_solution = pd.DataFrame(my_prediction_two, PassengerId, columns=["Survived"])
+my_solution.to_csv('my_solution_two.csv', index_label=["PassengerId"])
+

@@ -153,10 +153,14 @@ features_forest = train[["Pclass", "Age", "Sex", "Fare", "SibSp", "Parch", "Emba
 forest = RandomForestClassifier(max_depth=10, min_samples_split=2, n_estimators=100, random_state=1)
 my_forest = forest.fit(features_forest, target)
 # Print the score of the fitted random forest
-print("Random Forest score for test set: {}".format(my_forest.score(features_forest, target)))
+print("Random Forest score for train set: {}".format(my_forest.score(features_forest, target)))
 # Compute predictions on our test set features then print the length of the prediction vector
 test_features = test[["Pclass", "Age", "Sex", "Fare", "SibSp", "Parch", "Embarked"]].values
 pred_forest = my_forest.predict(test_features)
 print("Predict forest length: {}".format(len(pred_forest)))
-
+PassengerId = np.array(test["PassengerId"]).astype(int)
+my_solution_four = pd.DataFrame(pred_forest, PassengerId, columns=["Survived"])
+my_solution_four.to_csv('my_solution_four.csv', index_label=["PassengerId"])
+# MY_SOLUTUION_FOUR_SCORE = 0.76076
+# print("Kaggle score using test set is: {}".format(MY_SOLUTUION_FOUR_SCORE))
 
